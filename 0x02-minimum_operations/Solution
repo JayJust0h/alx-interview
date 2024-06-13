@@ -1,0 +1,222 @@
+To solve this problem, we need to calculate the minimum number of operations to get exactly 
+𝑛
+n characters in the text file using only two operations: "Copy All" and "Paste".
+
+The approach leverages the fact that the most efficient way to achieve 
+𝑛
+n characters is through factoring. Specifically, we can decompose 
+𝑛
+n into a product of smaller factors, each step of multiplication representing a series of copy and paste operations.
+
+Here's the step-by-step plan to implement the solution:
+
+Initialize Operations Counter: We'll start by initializing a counter to keep track of the number of operations.
+Prime Factorization: Decompose 
+𝑛
+n into its prime factors. Each time we find a factor 
+𝑖
+i of 
+𝑛
+n, we will perform a "Copy All" followed by 
+𝑖
+−
+1
+i−1 "Paste" operations.
+Accumulate Operations: For each prime factor 
+𝑖
+i, we add 
+𝑖
+i to the operations counter (1 for the "Copy All" and 
+𝑖
+−
+1
+i−1 for the "Paste" operations).
+Edge Case Handling: If 
+𝑛
+n is 1, the number of operations is 0 because we already start with one 'H'.
+Here is the Python function to implement this approach:
+
+python
+Copy code
+def minOperations(n):
+    if n <= 1:
+        return 0
+    
+    operations = 0
+    factor = 2
+    
+    while n > 1:
+        while n % factor == 0:
+            operations += factor
+            n //= factor
+        factor += 1
+    
+    return operations
+
+# Example Usage
+n = 9
+print(minOperations(n))  # Output should be 6
+Explanation:
+Initialization: The function starts with operations set to 0 and factor set to 2.
+Loop Through Factors: It iterates through possible factors starting from 2. If factor divides n evenly, it means we can "Copy All" and then perform factor-1 pastes to achieve this multiplication. This is repeated until 
+𝑛
+n is fully decomposed.
+Increment Factor: If factor does not divide n evenly, it is incremented to check the next potential factor.
+Example for 
+𝑛
+=
+9
+n=9:
+𝑛
+=
+9
+n=9 is decomposed into 
+3
+×
+3
+3×3.
+The first factor is 3: We "Copy All" and then perform 2 pastes (3 operations).
+The second factor is 3: Again, we "Copy All" and then perform 2 pastes (3 operations).
+Total operations = 3 (for first 3) + 3 (for second 3) = 6.
+This approach ensures that we use the fewest operations by leveraging the prime factorization of 
+𝑛
+n.
+
+use this as a test case for the code and display the output #!/usr/bin/python3
+"""
+Main file for testing
+"""
+
+minOperations = __import__('0-minoperations').minOperations
+
+n = 4
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+
+n = 12
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+
+Let's set up the test case within a Python script that uses the provided minOperations function. I'll provide you with the complete script, including the function definition and the test cases as specified.
+
+First, let's define the minOperations function in a file named 0-minoperations.py:
+
+python
+Copy code
+# 0-minoperations.py
+
+def minOperations(n):
+    if n <= 1:
+        return 0
+    
+    operations = 0
+    factor = 2
+    
+    while n > 1:
+        while n % factor == 0:
+            operations += factor
+            n //= factor
+        factor += 1
+    
+    return operations
+Next, create a main file to test the function, as specified in your request:
+
+python
+Copy code
+#!/usr/bin/python3
+"""
+Main file for testing
+"""
+
+minOperations = __import__('0-minoperations').minOperations
+
+n = 4
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+
+n = 12
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+Now, let's run this script to see the output:
+
+Ensure both files are in the same directory.
+Make the main file executable.
+Execute the main file.
+Here is how you can set it up and run it:
+
+0-minoperations.py
+python
+Copy code
+def minOperations(n):
+    if n <= 1:
+        return 0
+    
+    operations = 0
+    factor = 2
+    
+    while n > 1:
+        while n % factor == 0:
+            operations += factor
+            n //= factor
+        factor += 1
+    
+    return operations
+main.py
+python
+Copy code
+#!/usr/bin/python3
+"""
+Main file for testing
+"""
+
+minOperations = __import__('0-minoperations').minOperations
+
+n = 4
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+
+n = 12
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+Command to Run
+Make sure the main.py is executable:
+
+sh
+Copy code
+chmod +x main.py
+Run the main.py script:
+
+sh
+Copy code
+./main.py
+Expected Output
+bash
+Copy code
+Min # of operations to reach 4 char: 4
+Min # of operations to reach 12 char: 7
+Here’s a brief explanation of why:
+
+For 
+𝑛
+=
+4
+n=4:
+Decompose 
+4
+4 into 
+2
+×
+2
+2×2.
+Copy All, Paste, Paste = 4 operations.
+For 
+𝑛
+=
+12
+n=12:
+Decompose 
+12
+12 into 
+2
+×
+2
+×
+3
+2×2×3.
+Copy All, Paste, Paste (4 characters).
+Copy All, Paste, Paste, Paste (12 characters).
+Total operations = 2 (for the first 2) + 2 (for the second 2) + 3 (for 3) = 7 operations.
